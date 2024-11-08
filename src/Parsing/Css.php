@@ -93,13 +93,13 @@ class Css
         return isset($this->table[count($this->table)-1]) ? $this->table[count($this->table)-1] : $this->value;
     }
 
-   /**
-    * Define the Default Font to use, if the font does not exist, or if no font asked
-    *
-    * @param string  default font-family. If null : Arial for no font asked, and error fot ont does not exist
-    *
-    * @return string  old default font-family
-    */
+    /**
+     * Define the Default Font to use, if the font does not exist, or if no font asked
+     *
+     * @param string  default font-family. If null : Arial for no font asked, and error fot ont does not exist
+     *
+     * @return string  old default font-family
+     */
     public function setDefaultFont($default = null)
     {
         $old = $this->defaultFont;
@@ -624,12 +624,12 @@ class Css
         $class = array();
         $tmp = isset($param['class']) ? strtolower(trim($param['class'])) : '';
         $tmp = explode(' ', $tmp);
-        
+
         // replace some values
         $toReplace = array(
             '[[page_cu]]' => $this->pdf->getMyNumPage()
         );
-        
+
         foreach ($tmp as $v) {
             $v = trim($v);
             if (strlen($v)>0) {
@@ -930,7 +930,7 @@ class Css
                     $val = preg_replace('/,[\s]+/', ',', $val);
                     $val = explode(' ', $val);
                     foreach ($val as $valK => $valV) {
-                            $val[$valK] = $this->cssConverter->convertToColor($valV, $res);
+                        $val[$valK] = $this->cssConverter->convertToColor($valV, $res);
                         if (!$res) {
                             $val[$valK] = null;
                         }
@@ -986,7 +986,7 @@ class Css
                 case 'border-width':
                     $val = explode(' ', $val);
                     foreach ($val as $valK => $valV) {
-                            $val[$valK] = $this->cssConverter->convertToMM($valV, 0);
+                        $val[$valK] = $this->cssConverter->convertToMM($valV, 0);
                     }
                     $this->duplicateBorder($val);
                     if ($val[0]) {
@@ -1073,11 +1073,11 @@ class Css
                         $valV = $valH;
                     }
                     $this->value['border']['radius'] = array(
-                                'tl' => array($valH[0], $valV[0]),
-                                'tr' => array($valH[1], $valV[1]),
-                                'br' => array($valH[2], $valV[2]),
-                                'bl' => array($valH[3], $valV[3])
-                            );
+                        'tl' => array($valH[0], $valV[0]),
+                        'tr' => array($valH[1], $valV[1]),
+                        'br' => array($valH[2], $valV[2]),
+                        'bl' => array($valH[3], $valV[3])
+                    );
                     break;
 
                 case 'border-top-left-radius':
@@ -1248,10 +1248,10 @@ class Css
                 }
             } else {
                 if ($this->value['width']) {
-                    if ($this->value['border']['l']['width']) {
+                    if (isset($this->value['border']['l']['width'])) {
                         $this->value['width'] += $this->value['border']['l']['width'];
                     }
-                    if ($this->value['border']['r']['width']) {
+                    if (isset($this->value['border']['r']['width'])) {
                         $this->value['width'] += $this->value['border']['r']['width'];
                     }
                     if ($this->value['padding']['l']) {
@@ -1264,10 +1264,10 @@ class Css
             }
         }
         if ($this->value['height']) {
-            if ($this->value['border']['b']['width']) {
+            if (isset($this->value['border']['b']['width'])) {
                 $this->value['height'] += $this->value['border']['b']['width'];
             }
-            if ($this->value['border']['t']['width']) {
+            if (isset($this->value['border']['t']['width'])) {
                 $this->value['height'] += $this->value['border']['t']['width'];
             }
             if ($this->value['padding']['b']) {
@@ -1552,10 +1552,10 @@ class Css
             // if the convert is ok => it is a width
             if ($tmp !== null) {
                 $width = $tmp;
-            // else, it could be the type
+                // else, it could be the type
             } elseif (in_array($value, array('solid', 'dotted', 'dashed', 'double'))) {
                 $type = $value;
-            // else, it could be the color
+                // else, it could be the color
             } else {
                 $tmp = $this->cssConverter->convertToColor($value, $res);
                 if ($res) {
@@ -1587,11 +1587,11 @@ class Css
             $val[1] = $val[0];
             $val[2] = $val[0];
             $val[3] = $val[0];
-        // 2 values => L => R & T => B
+            // 2 values => L => R & T => B
         } elseif (count($val) == 2) {
             $val[2] = $val[0];
             $val[3] = $val[1];
-        // 3 values => T => B
+            // 3 values => T => B
         } elseif (count($val) == 3) {
             $val[3] = $val[1];
         }
